@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
         get 'tournaments/', to: "tournaments#index"
         get 'tournaments/:id', to: "tournaments#show"
+        get 'tournaments/:id/events', to: "tournaments#tournament_events"
+        get 'tournaments/:id/teams', to: "tournaments#tournament_teams"   
 
         get 'teams/', to: "teams#index"
         get 'teams/:id', to: "teams#show"
