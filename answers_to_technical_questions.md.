@@ -1,0 +1,50 @@
+Answaers to Technical Questions
+
+1.
+	1.a How long did you spend on the code challenge?
+
+		1/2 SP - To setup proper rails, mysql version and app creation
+		1 SP - To generate(create, route setup, seed) for models and controller
+		1 SP - To add authentication using JWT
+
+
+	1.b What would you add to your solution if you had more time?
+
+		2 SP - Implementing rspec and adding test scenarios to verify authentication and api responses
+
+
+	1.c If you didn't spend much time on the code challenge then use. this as an opportunity to explain what you would add.
+
+		1 SP - Serializing our JSON responses(to define custom methods to display extra information or override how it’s displayed in your JSON.)
+
+		1 SP - Caching(if our API is read-heavy, the data doesn't change very often, or the responses are slow to generate -- meaning you can afford to serve data that’s a few seconds out of date)
+
+		1 SP - Implementing Rack::Attack gem, a middleware that allows us to:
+				whitelist: Allowing it to process normally if certain conditions are true
+				blacklist: Sending a denied message instantly for certain requests
+				throttle: Checking if the user is within their allowed usage
+				track: Tracking this request to be able to log certain information about our requests
+
+	
+
+
+2. What was the most useful feature that was added to the latest version of a language
+	you used? Please include a snippet of code that shows how you've used it.
+
+
+
+3. How would you track down a performance issue in production? Have you ever had to do this?
+	
+	Performance of an application also has to be the priority.
+	I would like to integrate performance tracking tools like -- New Relic
+
+	I am familiar with the new-relic tool and constantly monitoring on the performance of the application.
+		Find and trace what functionality(controller action) of the application is time consuming and can it be reduced.
+		Find feature/functionality that is oftenly used
+		Find and Improve most oftenly visited part of the Application(Usually home page, services, signups)
+		
+
+4. Please describe yourself using JSON
+	
+	Added the solution in a seperate file called describe_in_json.md
+
