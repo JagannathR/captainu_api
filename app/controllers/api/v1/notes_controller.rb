@@ -18,7 +18,16 @@ class Api::V1::NotesController < ApplicationController
 	  @note = Note.new(note_params)
 
 	  if @note.save
-	    render json: @note, status: :created, location: @note
+	    respond_to do |format|
+	        format.json { render :json => { :data =>
+	            [{
+	                :type => "assessment_notes",
+	                :attributes =>  @note,
+	                
+	            }]
+	        }
+	      }
+	     end
 	  else
 	    render json: @note.errors, status: :unprocessable_entity
 	  end
@@ -27,7 +36,16 @@ class Api::V1::NotesController < ApplicationController
 	# PATCH/PUT /api/v1/notes/1
 	def update
 	  if @note.update(note_params)
-	    render json: @note
+	    respond_to do |format|
+	        format.json { render :json => { :data =>
+	            [{
+	                :type => "assessment_notes",
+	                :attributes =>  @note,
+	                
+	            }]
+	        }
+	      }
+	     end
 	  else
 	    render json: @note.errors, status: :unprocessable_entity
 	  end
@@ -36,6 +54,10 @@ class Api::V1::NotesController < ApplicationController
 	# DELETE /api/v1/notes/1
 	def destroy
 	  @note.destroy
+	  respond_to do |format|
+	      format.json { render :json => { :data => { :message => "assessments note deleted"}
+	      }
+	    }
 	end
 
 	private

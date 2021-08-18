@@ -10,7 +10,52 @@ class Api::V1::AssessmentsController < ApplicationController
 
 	# GET /api/v1/assessments/1
 	def show
-	  render json: @assessment, include: ['player']
+	  @include_notes = params[:include]
+	  @assessments_notes = @assessment.notes
+	  	if @include_notes == "notes"
+		  respond_to do |format|
+		      format.json { render :json => { :data =>
+		          [{
+		              :id => @assessment.id,
+		              :type => "assessments",
+		              :attributes =>  @assessment,
+		              :relationships =>  {
+		                  :assessments_notes => {
+		                      :data => {
+		                          :id => @assessments_notes.first.id,
+		                          :type => "teams"
+		                      }
+		                  }
+		              }
+		          }]
+		      },
+		      :included => [
+		        :id => @assessment.id,
+		        :type => "assessments",
+		        :attributes => @assessment
+		      ]
+		    }
+		   end
+		 else
+		 	respond_to do |format|
+		 	    format.json { render :json => { :data =>
+		 	        [{
+		 	            :id => @assessment.id,
+		 	            :type => "assessments",
+		 	            :attributes =>  @assessment,
+		 	            :relationships =>  {
+		 	                :assessments_notes => {
+		 	                    :data => {
+		 	                        :id => @assessments_notes.first.id,
+		 	                        :type => "teams"
+		 	                    }
+		 	                }
+		 	            }
+		 	        }]
+		 	    }
+		 	  }
+		 	 end
+		 end
 	end
 
 	# POST /api/v1/assessments
@@ -26,8 +71,53 @@ class Api::V1::AssessmentsController < ApplicationController
 
 	# PATCH/PUT /api/v1/assessments/1
 	def update
+		@include_notes = params[:include]
+		@assessments_notes = @assessment.notes
 	  if @assessment.update(assessment_params)
-	    render json: @assessment
+	   	  	if @include_notes == "notes"
+	   		  respond_to do |format|
+	   		      format.json { render :json => { :data =>
+	   		          [{
+	   		              :id => @assessment.id,
+	   		              :type => "assessments",
+	   		              :attributes =>  @assessment,
+	   		              :relationships =>  {
+	   		                  :assessments_notes => {
+	   		                      :data => {
+	   		                          :id => @assessments_notes.id,
+	   		                          :type => "teams"
+	   		                      }
+	   		                  }
+	   		              }
+	   		          }]
+	   		      },
+	   		      :included => [
+	   		        :id => @assessments_notes.id,
+	   		        :type => "assessments_notes",
+	   		        :attributes => @assessment
+	   		      ]
+	   		    }
+	   		   end
+	   		 else
+	   		 	respond_to do |format|
+	   		 	    format.json { render :json => { :data =>
+	   		 	        [{
+	   		 	            :id => @assessment.id,
+	   		 	            :type => "assessments",
+	   		 	            :attributes =>  @assessment,
+	   		 	            :relationships =>  {
+	   		 	                :assessments_notes => {
+	   		 	                    :data => {
+	   		 	                        :id => @assessments_notes.id,
+	   		 	                        :type => "teams"
+	   		 	                    }
+	   		 	                }
+	   		 	            }
+	   		 	        }]
+	   		 	    }
+	   		 	  }
+	   		 	 end
+	   		 end
 	  else
 	    render json: @assessment.errors, status: :unprocessable_entity
 	  end
@@ -36,6 +126,11 @@ class Api::V1::AssessmentsController < ApplicationController
 	# DELETE /api/v1/assessments/1
 	def destroy
 	  @assessment.destroy
+	  @assessment.notes.destroy_all
+	  respond_to do |format|
+	      format.json { render :json => { :data => { :message => "assessments and notes deleted"}
+	      }
+	    }
 	end
 
 	private
