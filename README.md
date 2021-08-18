@@ -90,35 +90,32 @@ cd myapp
 	rails g model Note user:references note:string assessment:references
 
 
+# Commands to delete models
+	rails d model Player first_name:string last_name:string height:integer weight:integer birthday:string graduation_year:integer position:string recruit:boolean
+
+	rails d model Tournament name:string city:string state:string start_date:date
+
+	rails d model Team name:string age_group:string coach:string
+
+	rails d model User email:string password:string
+
+	rails d model Assessment rating:integer assessment_type:string user:references tournament:references player:references
+
+	rails d model Note user:references note:string assessment:references
 
 
 
-rails d model Player first_name:string last_name:string height:integer weight:integer birthday:string graduation_year:integer position:string recruit:boolean
+# Commands to generate controllers
+	rails g controller api/v1/Notes
 
-rails d model Tournament name:string city:string state:string start_date:date
+	rails g controller api/v1/Players
 
-rails d model Team name:string age_group:string coach:string
+	rails g controller api/v1/Tournaments
 
-rails d model User email:string password:string
+	rails g controller api/v1/Teams
 
-rails d model Assessment rating:integer assessment_type:string user:references tournament:references player:references
+	rails g controller api/v1/Users 
 
-rails d model Note user:references note:string assessment:references
-
-
-
-
-
-rails g controller api/v1/Notes 
-
-rails g controller api/v1/Players 
-
-rails g controller api/v1/Tournaments 
-
-rails g controller api/v1/Teams 
-
-rails g controller api/v1/Users 
-
-rails g controller api/v1/Assessments 
+	rails g controller api/v1/Assessments
 
 
